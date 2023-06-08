@@ -29,7 +29,7 @@ namespace CretaceousClient.Models
       var apiCallTask = ApiHelper.Get(id);
       var result = apiCallTask.Result;
 
-      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      JObject jsonResponse = JObject.Parse(result);
       Animal animal = JsonConvert.DeserializeObject<Animal>(jsonResponse.ToString());
 
       return animal;

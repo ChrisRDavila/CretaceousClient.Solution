@@ -7,7 +7,7 @@ namespace CretaceousClient.Models
   {
     public static async Task<string> GetAll()
     {
-      RestClient client = new RestClient("http://localhost:5000/");
+      RestClient client = new RestClient("http://localhost:5001/");
       RestRequest request = new RestRequest($"api/animals", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
@@ -41,7 +41,7 @@ namespace CretaceousClient.Models
 
     public static async void Delete(int id)
     {
-      RestClient client = new RestClient("http://localhost:5000/");
+      RestClient client = new RestClient("http://localhost:5001/");
       RestRequest request = new RestRequest($"api/animals/{id}", Method.Delete);
       request.AddHeader("Content-Type", "application/json");
       await client.DeleteAsync(request);
@@ -49,8 +49,8 @@ namespace CretaceousClient.Models
 
     public static async Task<string> RandomAnimal()
     {
-      RestClient client = new RestClient("https://localhost:5000/");
-      RestRequest request = new RestRequest($"api/Animals/random", Method.Get);
+      RestClient client = new RestClient("https://localhost:5001/");
+      RestRequest request = new RestRequest($"api/animals/random", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
     }

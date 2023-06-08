@@ -15,7 +15,7 @@ public class AnimalsController : Controller
     List<Animal> animalList = new List<Animal> { };
     using (var httpClient = new HttpClient())
     {
-      using (var response = await httpClient.GetAsync($"https://localhost:5000/api/Animals?page={page}&pagesize={pageSize}"))
+      using (var response = await httpClient.GetAsync($"https://localhost:5001/api/Animals?page={page}&pagesize={pageSize}"))
       {
         var animalContent = await response.Content.ReadAsStringAsync();
         JArray animalArray = JArray.Parse(animalContent);
