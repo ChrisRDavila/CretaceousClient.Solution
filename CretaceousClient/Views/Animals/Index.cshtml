@@ -1,6 +1,12 @@
 @{
-    ViewData["Title"] = "Animals";
+ViewData["Title"] = "Animals";
+int pageSize = 6;
+int currentPage = ViewBag.CurrentPage;
+int startIndex = (currentPage - 1) * pageSize;
+int endIndex = Math.Min(startIndex + pageSize, Model.Count);
+List<Animal> animals = Model.GetRange(startIndex, endIndex - startIndex);
 }
+
 
 <h1>All Cretaceous Animals</h1>
 
@@ -9,9 +15,23 @@
 <p>@Html.ActionLink("Add a new animal to the park", "Create")</p>
 
 <h3>Animals:</h3>
-<ol>
+<div class="row">
 @foreach (Animal animal in Model)
 {
   <li><strong>@animal.Name</strong> the @animal.Species | <a href="/Animals/Details/@(animal.AnimalId)">View Details</a></li>
 }
 </ol>
+@if (currentPage > 1)
+{
+  <a href="/Animals?page=@(currentPage - 1)&pageSize=@pageSize"><button class="page-link">Prev</button></a>
+}
+@for (int i = 1; i <= Math.Ceiling((double)Model.Count / ViewBag.pageSize); i++)
+{
+  <li class="page-item @(currentPage == i ? "active" : "")">
+    <a class="page-link" href="/Parks?page=@i&pageSize=@pageSize">@i</a>
+  </li>
+}
+@if (currentPage < Math.Ceiling((double)Model.Count / pageSize))
+{
+  <a href="/Animals?page=@(currentPage + 1)&pageSize=@pageSize"><button class="page-link">Next</button></a>
+}

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace CretaceousClient.Models
 {
@@ -49,6 +50,17 @@ namespace CretaceousClient.Models
       public static void Delete(int id)
     {
       ApiHelper.Delete(id);
+    }
+
+    public static Animal RandomAnimal(int id)
+    {
+      var apiCallTask = ApiHelper.Get(id);
+      var result = apiCallTask.Result;
+
+      JObject jsonResponse = JObject.Parse(result);
+      Animal animal = JsonConvert.DeserializeObject<Animal>(jsonResponse.ToString());
+
+      return animal;
     }
 
   }

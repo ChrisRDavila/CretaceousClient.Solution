@@ -46,5 +46,13 @@ namespace CretaceousClient.Models
       request.AddHeader("Content-Type", "application/json");
       await client.DeleteAsync(request);
     }
+
+    public static async Task<string> RandomAnimal()
+    {
+      RestClient client = new RestClient("https://localhost:5000/");
+      RestRequest request = new RestRequest($"api/Animals/random", Method.Get);
+      RestResponse response = await client.GetAsync(request);
+      return response.Content;
+    }
   }
 }
